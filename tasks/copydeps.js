@@ -22,10 +22,10 @@ module.exports = function (grunt) {
     });
     
     // Read package data.
-    var pkg = grunt.file.readJSON(this.pkg);
+    var pkg = grunt.file.readJSON(path.resolve(this.data.pkg));
     
     // Get the target destination.
-    var dest = this.dest;
+    var dest = this.data.dest;
     
     // Get dependencies.
     var dependencies = Object.keys(pkg.dependencies);
