@@ -1,0 +1,19 @@
+{
+  "name": "grunt-copy-dependencies",
+  "version": "1.0.0",
+  "description": "Copy `package.json` dependencies from `node_modules` to a destination of your choosing",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laurenhamel/grunt-copy-dependencies.git"
+  },
+  "keywords": [
+    "npm",
+    "grunt"
+  ],
+  "author": "Lauren Hamel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/laurenhamel/grunt-copy-dependencies/issues"
+  },
+  "homepage": "https://github.com/laurenhamel/grunt-copy-dependencies#readme"
+}
