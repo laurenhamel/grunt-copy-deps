@@ -53,7 +53,7 @@ An array containing the name of dependencies that should be excluded from copyin
 
 ### Examples
 
-Add a section named `sasson` to the data object passed into `grunt.initConfig()`.
+Add a section named `copydeps` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
@@ -75,4 +75,4 @@ grunt.loadNpmTasks('grunt-copy-deps');
 grunt.registerTask('default', ['copydeps']);
 ```
 
-Dependencies will be copied in your `dest` folder.
+The `copydeps` task will look for `dependencies` listed in your `package.json` file, and dependencies will be copied into your `dest` folder.
