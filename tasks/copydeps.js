@@ -35,8 +35,10 @@ module.exports = function (grunt) {
     
     dependencies.forEach(function(dependency){
       
+      // Ignore exclusions.
       if( options.exclude.indexOf(dependency) > -1 ) return;
       
+      // Attempt to use 
       var glob = 'node_modules/' + dependency + '/**/' + dependency;
       
       if( options.minified === true ) globs.push( glob + '.min.js' );
@@ -46,6 +48,59 @@ module.exports = function (grunt) {
   
     // Resolve globs.
     var files = grunt.file.expand(globs);
+    
+    // Set directory precedence for dependencies.
+    var precedence = [
+      'dist/',
+      'build/',
+      'src/',
+      'lib/',
+    ];
+    
+    // Filter files based on precedence.
+    dependencies.forEach(function(dependency){
+      
+      var instances = files.filter(function(file){
+        return file.indexOf(dependency) > -1;
+      });
+      
+      if( instances.length === 0 ) return;
+      
+      var keep;
+      
+      for(var i = 0; i < precedence.length; i++) {
+        
+        var match = instances.filter(function(file){
+          return file.indexOf(precedence[i]) > -1;
+        })[0]; 
+        
+        if( match ) {
+          
+          keep = files.indexOf(match);
+          
+          break;
+          
+        }
+        
+      } 
+      
+      if( keep !== undefined && keep !== null ) {
+        
+        var i = instances.length;
+        
+        while( i-- ) {
+          
+          if( files.indexOf(instances[i]) !== keep ) {
+
+            files.splice(files.indexOf(instances[i]), 1);
+
+          }
+          
+        }
+        
+      }
+      
+    });
     
     // Fetch and copy dependencies.
     files.forEach(function(file){
