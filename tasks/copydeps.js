@@ -61,7 +61,7 @@ module.exports = function (grunt) {
     dependencies.forEach(function(dependency){
       
       var instances = files.filter(function(file){
-        return file.indexOf(dependency) > -1;
+        return file.indexOf(dependency + '.') > -1;
       });
       
       if( instances.length === 0 ) return;
@@ -83,7 +83,7 @@ module.exports = function (grunt) {
         }
         
       } 
-      
+
       if( keep !== undefined && keep !== null ) {
         
         var i = instances.length;
