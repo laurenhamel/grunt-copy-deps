@@ -53,8 +53,8 @@ module.exports = function (grunt) {
     var precedence = [
       'dist/',
       'build/',
-      'src/',
       'lib/',
+      'src/'
     ];
     
     // Filter files based on precedence.
