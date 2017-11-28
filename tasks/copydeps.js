@@ -51,64 +51,65 @@ module.exports = function (grunt) {
     
     // Set directory precedence for dependencies.
     var precedence = [
-      'dist/',
-      'build/',
-      'lib/',
-      'src/'
+      '/dist/',
+      '/build/',
+      '/lib/',
+      '/src/'
     ];
     
     // Filter files based on precedence.
     dependencies.forEach(function(dependency){
       
-      var instances = files.filter(function(file){
-        return file.indexOf(dependency + '.') > -1;
+      // Extract dependency files and sort based on precedence.
+      var ordered = files.filter(function(file){
+        
+        return file.indexOf( dependency + '.' ) > -1;
+        
+      }).sort(function(a, b){
+        
+        var A = precedence.slice(0).map(function(p){
+                  return a.indexOf(p);
+                }),
+            B = precedence.slice(0).map(function(p){
+                  return b.indexOf(p);
+                });
+        
+        A.max = Math.max.apply(Math, A);    
+        B.max = Math.max.apply(Math, B);
+        
+        A.index = A.indexOf(A.max);
+        B.index = B.indexOf(B.max);
+        
+        if(A.index < B.index) return -1;
+        if(A.index > B.index) return 1;
+        return 0;
+        
       });
       
-      if( instances.length === 0 ) return;
-      
-      var keep;
-      
-      for(var i = 0; i < precedence.length; i++) {
-        
-        var match = instances.filter(function(file){
-          return file.indexOf(precedence[i]) > -1;
-        })[0]; 
-        
-        if( match ) {
-          
-          keep = files.indexOf(match);
-          
-          break;
-          
-        }
-        
-      } 
+      // Split into minified and unminified.
+      var minified = ordered.filter(function(file){
+            return file.indexOf('.min.js') > -1;
+          }),
+          unminified = ordered.filter(function(file){
+            return minified.indexOf(file) === -1;
+          });
 
-      if( keep !== undefined && keep !== null ) {
-        
-        var i = instances.length;
-        
-        while( i-- ) {
-          
-          if( files.indexOf(instances[i]) !== keep ) {
-
-            files.splice(files.indexOf(instances[i]), 1);
-
-          }
-          
-        }
-        
-      }
+      // Initialize a set of files to keep.
+      var keep = [];
       
-    });
-    
-    // Fetch and copy dependencies.
-    files.forEach(function(file){
+      // Get first index of minified/unminified files.
+      if( options.minified === true && minified.length > 0 ) keep.push( minified[0] );
+      if( options.unminified === true && unminified.length > 0 ) keep.push( unminified[0] );
       
-      // Change the destination.
-      var filename = path.basename(file);
-      
-      grunt.file.copy(file, path.resolve(dest, filename));
+      // Fetch and copy dependencies.
+      keep.forEach(function(file){
+        
+        // Change the destination.
+        var filename = path.basename(file);
+        
+        grunt.file.copy(file, path.resolve(dest, filename));
+        
+      });
       
     });
     
