@@ -52,13 +52,7 @@ An array containing the name of the dependencies (as listed in your package file
 #### exclude
 
 Type: `Object`
-Default: 
-```
-{
-  js: [],
-  css: []
-}
-```
+Default: `{ js: [], css: [] }`
 
 An object identifying the `.js` and/or `.css` files that should not be copied.
 
@@ -66,13 +60,7 @@ An object identifying the `.js` and/or `.css` files that should not be copied.
 #### include
 
 Type: `Object`
-Default: 
-```
-{
-  js: {},
-  css: {}
-}
-```
+Default: `{ js: {}, css: {} }`
 
 An object identifying the `.js` and/or `.css` files that should also be copied along with other dependency files.
 
