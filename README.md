@@ -29,6 +29,7 @@ _Run this task with the `grunt copydeps` command._
 #### minified
 
 Type: `Boolean`  
+
 Default: `true`
 
 Copy the minified version of each dependency.
@@ -37,6 +38,7 @@ Copy the minified version of each dependency.
 #### unminified
 
 Type: `Boolean`  
+
 Default: `false`
 
 Copy the unminified version of each dependency.
@@ -45,6 +47,7 @@ Copy the unminified version of each dependency.
 #### ignore
 
 Type: `Array`  
+
 Default: `[]`
 
 An array containing the name of the dependencies (as listed in your package file) that should be ignored.
@@ -52,6 +55,7 @@ An array containing the name of the dependencies (as listed in your package file
 #### exclude
 
 Type: `Object`
+
 Default: `{ js: [], css: [] }`
 
 An object identifying the `.js` and/or `.css` files that should not be copied.
@@ -60,6 +64,7 @@ An object identifying the `.js` and/or `.css` files that should not be copied.
 #### include
 
 Type: `Object`
+
 Default: `{ js: {}, css: {} }`
 
 An object identifying the `.js` and/or `.css` files that should also be copied along with other dependency files.
@@ -68,6 +73,7 @@ An object identifying the `.js` and/or `.css` files that should also be copied a
 #### js
 
 Type: `Boolean`
+
 Default: `true`
 
 Determines whether or not `.js` files for all dependencies should be copied.
@@ -76,6 +82,7 @@ Determines whether or not `.js` files for all dependencies should be copied.
 #### css
 
 Type: `Boolean`
+
 Default: `false`
 
 Determines whether or not `.css` files for all dependencies should be copied.
