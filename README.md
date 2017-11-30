@@ -202,7 +202,7 @@ grunt.initConfig({
     target: {            
       options: {   
         /**
-         * All files paths are relative to
+         * All file paths are relative to
          * the `node_modules/` directory.
          */
         exclude: {
@@ -228,7 +228,7 @@ grunt.initConfig({
            * where <dest> refers to a path relative to 
            * your `dest/` directory. You can use
            * '.' if no subfolder is desired. All <src>
-           * file paths are relative to the `node_moduels/`
+           * file paths are relative to the `node_modules/`
            * directory.
            */
           js: {
