@@ -2,7 +2,7 @@
  * grunt-copy-dependencies
  * https://github.com/laurenhamel/grunt-copy-dependencies
  *
- * Copyright (c) 2017 Lauren Hamel
+ * Copyright (c) 2018 Lauren Hamel
  * Licensed under the MIT license.
  */
 
@@ -148,7 +148,7 @@ module.exports = function (grunt) {
       return true;
       
     });
-    
+
     // Set directory precedence for dependencies.
     var precedence = [
       '/dist/',
@@ -162,8 +162,8 @@ module.exports = function (grunt) {
       
       // Extract dependency files and sort based on precedence.
       var ordered = files.filter(function(file){
-        
-        return file.indexOf( dependency + '.' ) > -1;
+      
+        return file.indexOf( '/' + dependency + '.' ) > 0;
         
       }).sort(function(a, b){
         
@@ -185,7 +185,7 @@ module.exports = function (grunt) {
         return 0;
         
       });
-      
+
       // Split into minified and unminified.
       var minified = ordered.filter(function(file){
             return file.indexOf('.min.js') > -1;
@@ -193,7 +193,7 @@ module.exports = function (grunt) {
           unminified = ordered.filter(function(file){
             return minified.indexOf(file) === -1;
           });
-      
+         
       // Extract CSS and JS.
       if( minified.length > 0 ) {
         
