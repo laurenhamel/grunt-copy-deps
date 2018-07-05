@@ -105,7 +105,7 @@ module.exports = function (grunt) {
       
       for(var css in options.include.css) {
         
-        includes.push({ src: glob + css, dest: options.include.css[css] });
+        includes.push({ src: glob + css, dest: options.include.css[css], target: 'css' });
         
       }
       
@@ -117,7 +117,7 @@ module.exports = function (grunt) {
       
       for(var js in options.include.js) {
         
-        includes.push({ src: glob + js, dest: options.include.js[js] });
+        includes.push({ src: glob + js, dest: options.include.js[js], target: 'js' });
         
       }
       
@@ -133,7 +133,7 @@ module.exports = function (grunt) {
       return include;
       
     });
-  
+ 
     // Remove excluded files.
     files = files.filter(function(file){
       
@@ -258,7 +258,7 @@ module.exports = function (grunt) {
         
       });
       
-    });
+    }); 
     
     // Also fetch included files.
     includes.forEach(function(include){
@@ -266,18 +266,18 @@ module.exports = function (grunt) {
         
         var filename = path.basename(file), destination = [null, include.dest];
 
-        if( options.css === true && file.indexOf('.css') > -1 ) {
+        if( options.css === true && (file.indexOf('.css') > -1 || include.target == 'css') ) {
 
           destination[0] = dest instanceof Object ? dest.css : dest;
 
         }
 
-        if( options.js === true && file.indexOf('.js') > -1 ) {
+        if( options.js === true && (file.indexOf('.js') > -1 || include.target == 'js') ) {
 
           destination[0] = dest instanceof Object ? dest.js : dest;
 
         }
-
+        
         grunt.file.copy(file, path.resolve(path.resolve.apply(null, destination), filename));
         
       });
