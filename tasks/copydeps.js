@@ -161,11 +161,11 @@ module.exports = function (grunt) {
     dependencies.forEach(function(dependency){
       
       // Extract dependency files and sort based on precedence.
-      var ordered = files.filter(function(file){
+      var ordered = files.filter(function(file) {
       
         return file.indexOf( '/' + dependency + '.' ) > 0;
         
-      }).sort(function(a, b){
+      }).sort(function(a, b) {
         
         var A = precedence.slice(0).map(function(p){
                   return a.indexOf(p);
@@ -175,13 +175,23 @@ module.exports = function (grunt) {
                 });
         
         A.max = Math.max.apply(Math, A);    
-        B.max = Math.max.apply(Math, B);
+        B.max = Math.max.apply(Math, B); 
+
+        if(A.max == -1 && B.max > -1) return 1;
+        if(A.max > -1 && B.max == -1) return -1;
+        if(A.max == -1 && B.max == -1) {
+          if( a < b ) return -1;
+          if( a > b ) return 1;
+          return 0;
+        }
         
         A.index = A.indexOf(A.max);
         B.index = B.indexOf(B.max);
         
         if(A.index < B.index) return -1;
         if(A.index > B.index) return 1;
+        if( a < b ) return -1;
+        if( a > b ) return 1;
         return 0;
         
       });
